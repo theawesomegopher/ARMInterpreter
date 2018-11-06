@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class RegisterScreen extends AppCompatActivity {
 
@@ -46,23 +47,21 @@ public class RegisterScreen extends AppCompatActivity {
         this.theRegisterETs[29] = (EditText)this.findViewById(R.id.x29Etxt);
         this.theRegisterETs[30] = (EditText)this.findViewById(R.id.x30Etxt);
 
-        ARMap.registerValues.forEach((k, v) -> {
-            if(k != "XZR") {
-                int index = Integer.valueOf(k.substring(1));
-                this.theRegisterETs[index].setText(v);
-            }
-        });
+        this.fillRegistersWithCurrentValues();
+    }
+
+    private void fillRegistersWithCurrentValues() {
+        for(int i = 0; i < this.theRegisterETs.length; i++) {
+            this.theRegisterETs[i].setText("" + ARMap.registers[i].getValue());
+        }
     }
 
     public void saveButtonPressed(View v) {
         for(int i = 0; i < this.theRegisterETs.length; i++) {
-            String x = "X";
-            if (i < 10) {
-                x += "0";
-            }
-            ARMap.registerValues.put(x + i, this.theRegisterETs[i].getText().toString());
+            ARMap.registers[i].setValue(Integer.parseInt(this.theRegisterETs[i].getText().toString()));
         }
 
+        Toast.makeText(this, "Saved...", Toast.LENGTH_SHORT).show();
         finish();
     }
 }
