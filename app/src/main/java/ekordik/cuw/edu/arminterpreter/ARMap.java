@@ -1,16 +1,13 @@
 package ekordik.cuw.edu.arminterpreter;
 
 public class ARMap {
-    private static String[] instructions = {"ADD", "SUB"};
-    private static int[] instructionsMapping = {1112, 1624};
+    public static String[] instructions = {"ADD", "SUB"};
+    public static int[] instructionsMapping = {1112, 1624};
     public static Register[] registers = new Register[31];
 
     public static void init() {
-        for(int i = 0; i < ARMap.registers.length; i++) {
+        for(int i = 0; i < registers.length; i++) {
             String x = "X";
-            if (i < 10) {
-                x += "0";
-            }
             ARMap.registers[i] = new Register(x + i);
         }
     }
@@ -37,5 +34,24 @@ public class ARMap {
         return answer;
     }
 
+    public static int findInstructionIndex(String instruction) {
+        for(int i = 0; i < ARMap.instructions.length; i++ ) {
+            if (ARMap.instructions[i].equals(instruction)) {
+                return i;
+            }
+        }
+        // Did not find a matching instruction. Also is needed to keep the compiler happy
+        return -1;
+    }
 
+    public static int findRegisterIndexBy5BitNumber(String regAddress) {
+        for(int i = 0; i < ARMap.registers.length; i++) {
+            if (ARMap.registers[i].getFiveBitBinaryRegisterNumber().equals(regAddress)) {
+                return i;
+            }
+        }
+
+        // Default we did not find the register
+        return -1;
+    }
 }

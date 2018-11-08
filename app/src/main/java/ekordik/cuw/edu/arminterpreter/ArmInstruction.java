@@ -13,6 +13,29 @@ public class ArmInstruction {
 
     public ArmInstruction(String instruction, String destination, String sourceReg1, String sourceReg2) {
         this();
+        this.instruction = new BinaryValue(instruction);
+        this.destination = new BinaryValue(destination);
+        this.source1 = new BinaryValue(sourceReg1);
+        this.source2 = new BinaryValue(sourceReg2);
+    }
 
+    public BinaryValue getInstruction() {
+        return instruction;
+    }
+
+    public BinaryValue getDestination() {
+        return destination;
+    }
+
+    public BinaryValue getShifts() {
+        return shifts;
+    }
+
+    public BinaryValue getSource2() {
+        return source2;
+    }
+
+    public BinaryValue getSource1() {
+        return source1;
     }
 }
