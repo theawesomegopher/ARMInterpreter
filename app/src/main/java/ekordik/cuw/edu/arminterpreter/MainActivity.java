@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         this.registersLayout = (LinearLayout)findViewById(R.id.registerLL);
         this.instructionET = (EditText)findViewById(R.id.armInstructionET);
         ARMap.init();
-        translationService = new InstructionTranslationServiceImpl();
+        translationService = new DecimalInstructionTranslationServiceImpl();
     }
 
     @Override
@@ -35,10 +35,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void excuteButtonPressed(View v) {
         String instruction = this.instructionET.getText().toString();
-        this.translationService.executeInstruction(this.translationService.parseInstruction(instruction));
+
+        this.translationService.executeInstruction(new Instruction(instruction));
         this.updateRegisters();
         this.hideKeyboard(this);
-        Toast.makeText(this,"Executed Instruction", Toast.LENGTH_LONG);
+        Toast.makeText(this,"Executed Instruction", Toast.LENGTH_SHORT).show();
     }
 
     public void registerButtonPressed(View v) {

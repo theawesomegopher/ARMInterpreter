@@ -44,6 +44,16 @@ public class ARMap {
         return -1;
     }
 
+    public static Register findRegisterWithName(String nameOfRegister) {
+        for(Register r: ARMap.registers) {
+            if(r.getHumanReadableName().equalsIgnoreCase(nameOfRegister)) {
+                return r;
+            }
+        }
+        //Not found
+        return null;
+    }
+
     public static int findRegisterIndexBy5BitNumber(String regAddress) {
         for(int i = 0; i < ARMap.registers.length; i++) {
             if (ARMap.registers[i].getFiveBitBinaryRegisterNumber().equals(regAddress)) {

@@ -11,6 +11,15 @@ public class ArmInstruction {
         source1 = new BinaryValue(5);
     }
 
+    public ArmInstruction(String instruction) {
+        String magicTrick = instruction.substring(0, instruction.indexOf(' '));
+        int instructionIndex = ARMap.findInstructionIndex(magicTrick.toUpperCase().trim());
+        this.instruction = new BinaryValue(ARMap.decimalTo11BitBinary(ARMap.instructionsMapping[instructionIndex]));;
+        String[] parts = instruction.substring(magicTrick.length()).trim().split(",");
+        this.destination = new BinaryValue(ARMap.decimalTo5BitBinary(this.parseRegisterName(parts[1])));
+        this.source1 = new BinaryValue(ARMap.decimalTo5BitBinary(this.parseRegisterName(parts[2])));
+        this.source2 = new BinaryValue(ARMap.decimalTo5BitBinary(this.parseRegisterName(parts[3])));
+    }
     public ArmInstruction(String instruction, String destination, String sourceReg1, String sourceReg2) {
         this();
         this.instruction = new BinaryValue(instruction);
@@ -37,5 +46,9 @@ public class ArmInstruction {
 
     public BinaryValue getSource1() {
         return source1;
+    }
+
+    private int parseRegisterName(String regName) {
+        return Integer.parseInt(regName.substring(1).trim());
     }
 }
