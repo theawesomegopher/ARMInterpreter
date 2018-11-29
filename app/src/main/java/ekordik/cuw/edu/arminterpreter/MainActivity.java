@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private LinearLayout registersLayout;
     private EditText instructionET;
     private InstructionTranslationService translationService;
 
@@ -21,23 +20,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        this.registersLayout = (LinearLayout)findViewById(R.id.registerLL);
         this.instructionET = (EditText)findViewById(R.id.armInstructionET);
         ARMap.init();
         translationService = new DecimalInstructionTranslationServiceImpl();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        this.updateRegisters();
-    }
-
     public void excuteButtonPressed(View v) {
         String instruction = this.instructionET.getText().toString();
-
         this.translationService.executeInstruction(new Instruction(instruction));
-        this.updateRegisters();
         this.hideKeyboard(this);
         Toast.makeText(this,"Executed Instruction", Toast.LENGTH_SHORT).show();
     }
@@ -47,13 +37,9 @@ public class MainActivity extends AppCompatActivity {
         this.startActivity(i);
     }
 
-    private void updateRegisters() {
-        this.registersLayout.removeAllViews();
-        for(Register r : ARMap.registers) {
-            TextView registerTV = new TextView(this);
-            registerTV.setText(r.getHumanReadableName() + ": " + r.getValue());
-            this.registersLayout.addView(registerTV);
-        }
+    public void memoryButtonPressed(View v) {
+        Intent i = new Intent(this, MemoryScreen.class);
+        this.startActivity(i);
     }
 
     private void hideKeyboard(Activity activity){

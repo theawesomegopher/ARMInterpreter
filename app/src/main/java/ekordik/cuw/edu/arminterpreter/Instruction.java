@@ -8,6 +8,7 @@ public class Instruction {
     private LinkedList<String> inputNames = new LinkedList<>();
 
     public Instruction(String instruction) {
+        instruction = instruction.trim();
         int locationOfFirstSpace = instruction.indexOf(' ');
         this.magicTrick = instruction.substring(0, locationOfFirstSpace);
         instruction = instruction.substring(locationOfFirstSpace).trim();

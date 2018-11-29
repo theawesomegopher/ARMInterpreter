@@ -16,7 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterScreen"></activity>
+        <activity android:name=".RegisterScreen" />
+        <activity android:name=".RegisterDetailScreen" />
+        <activity android:name=".MemoryScreen"></activity>
     </application>
 
 </manifest>

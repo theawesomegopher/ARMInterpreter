@@ -1,15 +1,22 @@
 package ekordik.cuw.edu.arminterpreter;
 
+import java.util.Arrays;
+
 public class ARMap {
+
+    public static final int MEMORY_SIZE = 64;
+
     public static String[] instructions = {"ADD", "SUB"};
     public static int[] instructionsMapping = {1112, 1624};
     public static Register[] registers = new Register[31];
+    public static int[] memory = new int[MEMORY_SIZE];
 
     public static void init() {
         for(int i = 0; i < registers.length; i++) {
             String x = "X";
             ARMap.registers[i] = new Register(x + i);
         }
+        Arrays.fill(ARMap.memory, 0);
     }
 
     public static String decimalTo11BitBinary(int opCode) {
@@ -20,7 +27,7 @@ public class ARMap {
         return ARMap.decimalToNBinary(bin, 5);
     }
 
-    private static String decimalToNBinary(int binNum, int numBits) {
+    static String decimalToNBinary(int binNum, int numBits) {
         String answer = "";
         while (binNum > 0) {
             answer = (binNum % 2) + answer;

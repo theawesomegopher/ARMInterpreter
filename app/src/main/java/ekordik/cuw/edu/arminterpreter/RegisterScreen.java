@@ -1,9 +1,11 @@
 package ekordik.cuw.edu.arminterpreter;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class RegisterScreen extends AppCompatActivity {
@@ -63,5 +65,13 @@ public class RegisterScreen extends AppCompatActivity {
 
         Toast.makeText(this, "Saved...", Toast.LENGTH_SHORT).show();
         finish();
+    }
+
+    public void registerNameTFPressed(View v) {
+        TextView tv = (TextView)v;
+        String name = tv.getText().toString();
+        Intent i = new Intent(this, RegisterDetailScreen.class);
+        i.putExtra("detailRegisterName", name);
+        this.startActivity(i);
     }
 }
