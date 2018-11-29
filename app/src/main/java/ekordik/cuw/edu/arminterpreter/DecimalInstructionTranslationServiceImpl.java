@@ -1,5 +1,7 @@
 package ekordik.cuw.edu.arminterpreter;
 
+import java.util.List;
+
 public class DecimalInstructionTranslationServiceImpl implements InstructionTranslationService {
 
     @Override
@@ -36,13 +38,23 @@ public class DecimalInstructionTranslationServiceImpl implements InstructionTran
                 destinationRegister.setValue(input1Register.getValue() + immediateValue);
                 break;
             case "LDUR":
-                Register baseRegister = ARMap.findRegisterWithName(instruction.getInputNames().get(0).substring(1));
-                String offsetString = instruction.getInputNames().get(1);
-                int offset = Integer.parseInt(offsetString.substring(0, offsetString.length()-1));
-                destinationRegister.setValue(ARMap.memory[baseRegister.getValue() + offset]);
+                int memoryAddress = getMemoryAddress(instruction.getInputNames());
+                destinationRegister.setValue(ARMap.memory[memoryAddress]);
+                break;
+            case "STUR":
+                memoryAddress = this.getMemoryAddress(instruction.getInputNames());
+                ARMap.memory[memoryAddress] = destinationRegister.getValue();
                 break;
         }
 
     }
 
+    // Gets the memory address from code set up as [X2, 3] where the first part is the
+    // name of a register and the second is an offeset for memory. This function allows for DRY
+    private int getMemoryAddress(List<String> inputList) {
+        Register baseRegister = ARMap.findRegisterWithName(inputList.get(0).substring(1));
+        String offsetString = inputList.get(1);
+        int offset = Integer.parseInt(offsetString.substring(0, offsetString.length()-1));
+        return baseRegister.getValue() + offset;
+    }
 }
