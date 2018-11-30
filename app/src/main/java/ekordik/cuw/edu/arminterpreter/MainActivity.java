@@ -26,9 +26,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void excuteButtonPressed(View v) {
-        String instruction = this.instructionET.getText().toString();
-        this.translationService.executeInstruction(new Instruction(instruction));
         this.hideKeyboard(this);
+        String instruction = this.instructionET.getText().toString();
+        String lines[] = instruction.split("\n");
+        for(String line : lines) {
+            this.translationService.executeInstruction(new Instruction(line.trim()));
+        }
         Toast.makeText(this,"Executed Instruction", Toast.LENGTH_SHORT).show();
     }
 
