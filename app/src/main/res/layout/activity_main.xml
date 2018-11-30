@@ -11,24 +11,10 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/armInstructionET"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Enter Arm Instruction"
-            android:inputType="textPersonName" />
-
-        <Button
-            android:id="@+id/runInstructionBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="excuteButtonPressed"
-            android:text="Execute" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="0"
             android:orientation="horizontal">
 
             <Button
@@ -47,6 +33,32 @@
                 android:onClick="memoryButtonPressed"
                 android:text="Memory" />
         </LinearLayout>
+
+        <Button
+            android:id="@+id/runInstructionBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:onClick="excuteButtonPressed"
+            android:text="Execute" />
+
+        <EditText
+            android:id="@+id/armInstructionET"
+            android:layout_width="match_parent"
+            android:layout_height="156dp"
+            android:layout_weight=".3"
+            android:ems="10"
+            android:gravity="top"
+            android:hint="Enter Arm Instruction"
+            android:inputType="textMultiLine"
+            android:singleLine="false"
+            android:text="MOVZ X1, 7 \nMOVZ X2, 3" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:orientation="vertical"></LinearLayout>
 
     </LinearLayout>
 
