@@ -27,12 +27,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void excuteButtonPressed(View v) {
         this.hideKeyboard(this);
-        String instruction = this.instructionET.getText().toString();
-        String lines[] = instruction.split("\n");
+        String instructions = this.instructionET.getText().toString();
+        String lines[] = instructions.split("\n");
         for(String line : lines) {
-            this.translationService.executeInstruction(new Instruction(line.trim()));
+            if(line.length() > 0) {
+                this.translationService.executeInstruction(new Instruction(line.trim()));
+            }
         }
-        Toast.makeText(this,"Executed Instruction", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"Executed Instructions", Toast.LENGTH_SHORT).show();
     }
 
     public void registerButtonPressed(View v) {
@@ -43,6 +45,32 @@ public class MainActivity extends AppCompatActivity {
     public void memoryButtonPressed(View v) {
         Intent i = new Intent(this, MemoryScreen.class);
         this.startActivity(i);
+    }
+
+    public void addInstructionPressed(View v) {
+        Intent i = new Intent(this, InstructionPickerActivity.class);
+        this.startActivity(i);
+    }
+
+    public void clearPressed(View v) {
+        this.instructionET.setText("");
+    }
+
+    public void removeLastPressed(View v) {
+        String insturctions = this.instructionET.getText().toString();
+        if(insturctions.length() != 0) {
+            if(insturctions.charAt(insturctions.length()-1) == '\n') {
+                insturctions = insturctions.substring(0, insturctions.length()-1);
+            }
+            int lastIndex = insturctions.lastIndexOf('\n');
+            if(lastIndex < 0) {
+                this.instructionET.setText("");
+            } else {
+                insturctions= insturctions.substring(0, lastIndex);
+                this.instructionET.setText(insturctions);
+            }
+
+        }
     }
 
     private void hideKeyboard(Activity activity){
