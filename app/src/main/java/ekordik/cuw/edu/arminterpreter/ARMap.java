@@ -1,6 +1,9 @@
 package ekordik.cuw.edu.arminterpreter;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class ARMap {
 
@@ -10,9 +13,7 @@ public class ARMap {
     public static int[] instructionsMapping = {1112, 1624};
     public static Register[] registers = new Register[31];
     public static int[] memory = new int[MEMORY_SIZE];
-    public static String[] insturctionSyntaxMap = {"ADD DestReg, SrcReg1, SrcReg2", "ADDI DestReg, SrcReg1, Immediate",
-            "SUB DestReg, SrcReg1, SrcReg2", "SUBI DestReg, SrcReg1, Immediate", "MOVZ DestReg, Immediate",
-            "LDUR DestReg, [BaseAddReg, Offset]", "STUR SrcReg, [BaseAddReg, Offset]"};
+    public static Map<String, String> instructionsSyntaxMap = new LinkedHashMap<>();
 
     public static void init() {
         for(int i = 0; i < registers.length; i++) {
@@ -20,6 +21,14 @@ public class ARMap {
             ARMap.registers[i] = new Register(x + i);
         }
         Arrays.fill(ARMap.memory, 0);
+
+        instructionsSyntaxMap.put("ADD", "ADD DestReg, SrcReg1, SrcReg2");
+        instructionsSyntaxMap.put("ADDI", "ADDI DestReg, SrcReg1, Immediate");
+        instructionsSyntaxMap.put("SUB", "SUB DestReg, SrcReg1, SrcReg2");
+        instructionsSyntaxMap.put("SUBI", "SUBI DestReg, SrcReg1, Immediate");
+        instructionsSyntaxMap.put("MOVZ", "MOVZ DestReg, Immediate");
+        instructionsSyntaxMap.put("LDUR", "LDUR DestReg, [BaseAddReg, Offset]");
+        instructionsSyntaxMap.put("STUR", "STUR SrcReg, [BaseAddReg, Offset]");
     }
 
     public static String decimalTo11BitBinary(int opCode) {

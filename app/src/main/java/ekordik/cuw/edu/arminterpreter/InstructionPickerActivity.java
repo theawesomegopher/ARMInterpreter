@@ -5,37 +5,42 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class InstructionPickerActivity extends AppCompatActivity {
-    private List<Button> theButtons = new LinkedList<>();
+    private LinearLayout layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instruction_picker);
-        theButtons.add((Button)findViewById(R.id.btnAdd));
-        theButtons.add((Button)findViewById(R.id.btnAddI));
-        theButtons.add((Button)findViewById(R.id.btnSub));
-        theButtons.add((Button)findViewById(R.id.btnSubI));
-        theButtons.add((Button)findViewById(R.id.btnMovz));
-        theButtons.add((Button)findViewById(R.id.btnLdur));
-        theButtons.add((Button)findViewById(R.id.btnStur));
+        this.layout = findViewById(R.id.llInstructionBtns);
+
+        ARMap.instructionsSyntaxMap.keySet().stream().forEach(k -> {
+            System.out.println(k);
+            Button newBtn = new Button(this);
+            newBtn.setText(k);
+            newBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onInstructionButtonClicked(v);
+                }
+            });
+            this.layout.addView(newBtn);
+        });
     }
 
     public void onInstructionButtonClicked(View v) {
-        int pos = this.indexOfButton((Button)v);
-
+        Button b = (Button)v;
+        String btnText = b.getText().toString();
+        String instruction = ARMap.instructionsSyntaxMap.get(btnText);
+        Intent i = new Intent(this, MainActivity.class);
+        i.putExtra("instruction", instruction);
+        this.setResult(RESULT_OK, i);
+        this.finish();
     }
 
-    private int indexOfButton(Button b) {
-        for(int i = 0; i < theButtons.size(); i++) {
-            if(b == this.theButtons.get(i)) {
-                return i;
-            }
-        }
-        return -1;
-    }
 }

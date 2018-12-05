@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".InstructionPickerActivity">
+    tools:context=".InstructionPickerActivity"
+    tools:layout_editor_absoluteY="81dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,58 +25,11 @@
             android:layout_height="match_parent">
 
             <LinearLayout
+                android:id="@+id/llInstructionBtns"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/btnAdd"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="onInstructionButtonClicked"
-                    android:text="ADD" />
-
-                <Button
-                    android:id="@+id/btnAddI"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="onInstructionButtonClicked"
-                    android:text="ADDI" />
-
-                <Button
-                    android:id="@+id/btnSub"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="onInstructionButtonClicked"
-                    android:text="SUB" />
-
-                <Button
-                    android:id="@+id/btnSubI"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="onInstructionButtonClicked"
-                    android:text="SUBI" />
-
-                <Button
-                    android:id="@+id/btnMovz"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="onInstructionButtonClicked"
-                    android:text="MOVZ" />
-
-                <Button
-                    android:id="@+id/btnLdur"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="onInstructionButtonClicked"
-                    android:text="LDUR" />
-
-                <Button
-                    android:id="@+id/btnStur"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="onInstructionButtonClicked"
-                    android:text="STUR" />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

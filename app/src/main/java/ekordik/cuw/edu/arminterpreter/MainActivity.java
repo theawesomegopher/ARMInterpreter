@@ -14,7 +14,9 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     private EditText instructionET;
+    private String instructions;
     private InstructionTranslationService translationService;
+    private final String INSTRUCTION_EXTRA = "instruction";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,23 @@ public class MainActivity extends AppCompatActivity {
         this.instructionET = (EditText)findViewById(R.id.armInstructionET);
         ARMap.init();
         translationService = new DecimalInstructionTranslationServiceImpl();
+
+        if(this.getIntent().getStringExtra(this.INSTRUCTION_EXTRA) != null) {
+            String instruction = this.instructions;
+            String extra = this.getIntent().getStringExtra(this.INSTRUCTION_EXTRA);
+            instruction = "\n" + extra;
+            this.instructionET.append(instruction);
+            this.getIntent().removeExtra(this.INSTRUCTION_EXTRA);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(data.getStringExtra(this.INSTRUCTION_EXTRA) != null) {
+            String instruction = data.getStringExtra(this.INSTRUCTION_EXTRA);
+            this.instructionET.append("\n" + instruction);
+            data.removeExtra(this.INSTRUCTION_EXTRA);
+        }
     }
 
     public void excuteButtonPressed(View v) {
@@ -48,8 +67,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addInstructionPressed(View v) {
+        this.instructions = this.instructionET.getText().toString();
         Intent i = new Intent(this, InstructionPickerActivity.class);
-        this.startActivity(i);
+        this.startActivityForResult(i, 0);
     }
 
     public void clearPressed(View v) {
